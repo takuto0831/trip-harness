@@ -1,0 +1,11 @@
+{
+  "name": "trip-harness",
+  "owner": { "name": "takuto0831" },
+  "plugins": [
+    {
+      "name": "trip-harness",
+      "source": "./",
+      "description": "人の暗黙知を検索語に翻訳し、AI が候補を探して比べ、確認タスク・判断ログ・旅程に落とす旅行計画スキル"
+    }
+  ]
+}
