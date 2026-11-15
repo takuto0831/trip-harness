@@ -40,6 +40,18 @@ claude plugin marketplace update where-to-harness
 claude plugin update where-to-harness@where-to-harness
 ```
 
+## Install (Codex)
+
+Codex can't use the Claude Code plugin, but it can install the skill folder straight from this repo with its built-in skill installer. Ask Codex:
+
+```
+$skill-installer https://github.com/takuto0831/where-to-harness/tree/main/skills/where-to-harness
+```
+
+It goes into `~/.codex/skills/where-to-harness`. Restart Codex after installing. Turn on web search in Codex, since the skill searches the web.
+
+To update, delete `~/.codex/skills/where-to-harness` and run the same command again.
+
 ## Usage
 
 Open Claude Code and say "help me plan a trip", or just "find me an izakaya in Shibuya for tonight". If you plan to save, open it in a folder for your outings rather than in this repo (records go into `outings/` in that folder).
