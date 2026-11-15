@@ -28,7 +28,7 @@ claude plugin install where-to-harness@where-to-harness
 
 入れたあとは Claude Code を開き直してください。
 
-### 新しい版に更新する
+### 新しいバージョンに更新する
 
 ```
 claude plugin marketplace update where-to-harness
@@ -45,13 +45,13 @@ $skill-installer https://github.com/takuto0831/where-to-harness/tree/main/skills
 
 `~/.codex/skills/where-to-harness` に入ります。入れたあとは Codex を開き直してください。スキルは Web 検索を使うので、Codex で Web 検索を有効にしておいてください。
 
-新しい版にするときは、`~/.codex/skills/where-to-harness` を消してから、同じコマンドをもう一度実行します。
+新しいバージョンにするときは、`~/.codex/skills/where-to-harness` を消してから、同じコマンドをもう一度実行します。
 
 ## 使い方
 
 Claude Code を開き、「旅行の計画を一緒に考えて」や「今夜渋谷で居酒屋を探して」と話しかけます。保存するつもりなら、この repo ではなく旅行・おでかけ用のフォルダで開いてください（記録はそのフォルダの `outings/` にできます）。
 
-> **注意: `WebFetch(domain:*)` は許可しないでください。** Claude Code の設定（`settings.json` の `permissions.allow`）に `WebFetch(domain:*)` があると、どのページの取得も確認なしで通ってしまい、スキルが意図どおりに動きません（サイトごとに許可・拒否を選べず、拒否したときの公式ドメイン検索への切り替えも起きません）。消すか、信頼できるドメインだけを個別に許可してください。
+> **注意: `WebFetch(domain:*)` を deny に入れないでください。** Claude Code の設定（`settings.json` の `permissions.deny`）に `WebFetch(domain:*)` があると、すべてのページ取得が拒否され、スキルが宿や店の公式サイトを読めません。いつも検索結果だけで判断することになり、「公式」で確かめた ○ が付かなくなります。避けたいサイトがあるときは、ドメインを個別に deny に入れてください。
 
 ## 中身
 
