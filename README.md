@@ -19,12 +19,7 @@ It turns vague feelings like "a quiet place", "no chains" or "I get bored just s
 
 ## Install (Claude Code)
 
-```
-/plugin marketplace add takuto0831/where-to-harness
-/plugin install where-to-harness@where-to-harness
-```
-
-Where `/plugin` isn't available (e.g. the VS Code extension), do the same from a terminal:
+Run in a terminal:
 
 ```
 claude plugin marketplace add takuto0831/where-to-harness

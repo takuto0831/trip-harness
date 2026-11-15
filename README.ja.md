@@ -19,12 +19,7 @@
 
 ## 入れ方（Claude Code）
 
-```
-/plugin marketplace add takuto0831/where-to-harness
-/plugin install where-to-harness@where-to-harness
-```
-
-`/plugin` が使えない環境（VS Code 拡張など）では、ターミナルで同じことができます。
+ターミナルで次を実行します。
 
 ```
 claude plugin marketplace add takuto0831/where-to-harness
