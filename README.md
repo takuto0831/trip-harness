@@ -2,7 +2,7 @@
 
 English | [日本語](README.ja.md)
 
-A Claude Code skill that finds **where to go**, by going back and forth between your unspoken preferences and AI fact-checking.
+A skill that finds **where to go**, by going back and forth between your unspoken preferences and AI fact-checking. Installs in Claude Code and Codex (tested on Claude Code only).
 
 Use it for either of these:
 
