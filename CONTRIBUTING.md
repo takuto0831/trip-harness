@@ -6,8 +6,8 @@ Add signals that worked on your trips to the shared dictionary. There are two pa
 
 | Part | File | What goes there |
 |---|---|---|
-| Core dictionary | `skills/trip-harness/dictionary.md` | Unspoken preference / Observable signals / What the AI judges / How to confirm / When it applies. Language-independent |
-| Locale pack | `skills/trip-harness/locales/<locale>.md` | For each core entry: search and exclusion terms in the destination's language, and local conditions. Also the local booking and gourmet sites |
+| Core dictionary | `skills/where-to-harness/dictionary.md` | Unspoken preference / Observable signals / What the AI judges / How to confirm / When it applies. Language-independent |
+| Locale pack | `skills/where-to-harness/locales/<locale>.md` | For each core entry: search and exclusion terms in the destination's language, and local conditions. Also the local booking and gourmet sites |
 
 1. After a trip, the skill asks "Do you want to send this to the dictionary?" and shows a core row plus a locale row
 2. **Check that no personal details are in it** (family health, names, a date-and-place combination)
@@ -32,8 +32,8 @@ Accepted entries ship with the next plugin update (the skill doesn't fetch the d
 
 | 部分 | ファイル | 中身 |
 |---|---|---|
-| コア辞書 | `skills/trip-harness/dictionary.md` | 暗黙知／観測シグナル／AI が判定すること／確認方法／当てはまる条件。言語に依存しない |
-| 検索語パック | `skills/trip-harness/locales/<locale>.md` | コア辞書の項目ごとの、行き先の言語の検索語・除外語と、その国の事情。予約・グルメサイトの一覧も |
+| コア辞書 | `skills/where-to-harness/dictionary.md` | 暗黙知／観測シグナル／AI が判定すること／確認方法／当てはまる条件。言語に依存しない |
+| 検索語パック | `skills/where-to-harness/locales/<locale>.md` | コア辞書の項目ごとの、行き先の言語の検索語・除外語と、その国の事情。予約・グルメサイトの一覧も |
 
 1. 旅行のあとで、スキルが「辞書に送りますか？」と聞き、コア辞書の 1 行と検索語パックの 1 行を見せます
 2. **個人の事情（家族の体調、人名、日付と場所の組み合わせ）が入っていないか**を確かめてください

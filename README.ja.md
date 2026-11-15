@@ -1,8 +1,13 @@
-# trip-harness
+# where-to-harness
 
 [English](README.md) | 日本語
 
-旅行計画を、**人の暗黙知と AI の裏取りを往復させて**進める Claude Code のスキル。
+**行きたい場所**を、人の暗黙知と AI の裏取りを往復させて探す Claude Code のスキル。
+
+こんなときに使えます。
+
+- **旅行**: どこに泊まるか、どのエリアにするか、何をするか。旅程づくりまで
+- **食事**: 旅行じゃなくても、お店探しだけで使えます。たとえば「金曜に4人で、東京で静かめの居酒屋。チェーンは嫌」
 
 「うるさくない店がいい」「チェーンは嫌」「宿にこもるだけだと飽きる」のような曖昧な感覚を検索語・除外語に翻訳し、AI が Web 検索と宿・店の公式サイトで候補を探して、制約ごとの比較表とおすすめを出します。検索でわからないことは「未確認」として、電話で聞くことのリストにします。
 
@@ -15,15 +20,15 @@
 ## 入れ方（Claude Code）
 
 ```
-/plugin marketplace add takuto0831/trip-harness
-/plugin install trip-harness@trip-harness
+/plugin marketplace add takuto0831/where-to-harness
+/plugin install where-to-harness@where-to-harness
 ```
 
 `/plugin` が使えない環境（VS Code 拡張など）では、ターミナルで同じことができます。
 
 ```
-claude plugin marketplace add takuto0831/trip-harness
-claude plugin install trip-harness@trip-harness
+claude plugin marketplace add takuto0831/where-to-harness
+claude plugin install where-to-harness@where-to-harness
 ```
 
 入れたあとは Claude Code を開き直してください。
@@ -31,17 +36,19 @@ claude plugin install trip-harness@trip-harness
 ### 新しい版に更新する
 
 ```
-claude plugin marketplace update trip-harness
-claude plugin update trip-harness@trip-harness
+claude plugin marketplace update where-to-harness
+claude plugin update where-to-harness@where-to-harness
 ```
 
 ## 使い方
 
-Claude Code を開き、「旅行の計画を一緒に考えて」と話しかけます。保存するつもりなら、この repo ではなく旅行用のフォルダで開いてください（記録はそのフォルダにできます）。
+Claude Code を開き、「旅行の計画を一緒に考えて」や「今夜渋谷で居酒屋を探して」と話しかけます。保存するつもりなら、この repo ではなく旅行・おでかけ用のフォルダで開いてください（記録はそのフォルダの `outings/` にできます）。
+
+> **注意: `WebFetch(domain:*)` は許可しないでください。** Claude Code の設定（`settings.json` の `permissions.allow`）に `WebFetch(domain:*)` があると、どのページの取得も確認なしで通ってしまい、スキルが意図どおりに動きません（サイトごとに許可・拒否を選べず、拒否したときの公式ドメイン検索への切り替えも起きません）。消すか、信頼できるドメインだけを個別に許可してください。
 
 ## 中身
 
-- `skills/trip-harness/SKILL.md` … スキル本体
-- `skills/trip-harness/dictionary.md` … コア辞書。暗黙知 → 観測シグナル・AI が判定すること・確認方法（言語に依存しない部分）
-- `skills/trip-harness/locales/` … 行き先ごとの検索語パック。日本は `ja-JP.md`（検索語・除外語、日本の事情、予約・グルメサイト）。項目の送り方は [CONTRIBUTING.md](CONTRIBUTING.md)
-- `skills/trip-harness/templates/` … 旅行フォルダのひな形
+- `skills/where-to-harness/SKILL.md` … スキル本体
+- `skills/where-to-harness/dictionary.md` … コア辞書。暗黙知 → 観測シグナル・AI が判定すること・確認方法（言語に依存しない部分）
+- `skills/where-to-harness/locales/` … 行き先ごとの検索語パック。日本は `ja-JP.md`（検索語・除外語、日本の事情、予約・グルメサイト）。項目の送り方は [CONTRIBUTING.md](CONTRIBUTING.md)
+- `skills/where-to-harness/templates/` … おでかけ（旅行・食事）ごとのフォルダのひな形

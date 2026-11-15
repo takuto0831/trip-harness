@@ -1,6 +1,6 @@
 # Household profile
 
-<!-- Background reused across trips. Fill in what you learn; blanks are fine -->
+<!-- Background reused across outings. Fill in what you learn; blanks are fine -->
 
 ## People
 - 

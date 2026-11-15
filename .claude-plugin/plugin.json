@@ -1,18 +1,22 @@
 {
-  "name": "trip-harness",
+  "name": "where-to-harness",
   "version": "0.5.1",
-  "description": "Trip planning harness. Translates unspoken preferences (\"a quiet place\", 「うるさくない店がいい」) into search and exclusion terms in the destination's language; the AI searches the web and official sites, compares candidates, and keeps a ledger of candidates, things to confirm, decisions and the itinerary.",
+  "description": "Finds where to go, for a trip or just for dinner tonight. Translates unspoken preferences (\"a quiet izakaya\", 「うるさくない店がいい」, 「宿にこもるだけだと飽きる」) into search and exclusion terms in the destination's language; the AI searches the web and official sites of hotels and restaurants, compares candidates per constraint, and keeps what's still unconfirmed as questions to ask.",
   "author": {
     "name": "takuto0831"
   },
   "license": "MIT",
   "keywords": [
     "travel",
-    "planning",
+    "trip",
+    "restaurant",
+    "food",
+    "izakaya",
+    "hotel",
     "itinerary",
     "japan",
     "japanese"
   ],
-  "homepage": "https://github.com/takuto0831/trip-harness",
-  "repository": "https://github.com/takuto0831/trip-harness"
+  "homepage": "https://github.com/takuto0831/where-to-harness",
+  "repository": "https://github.com/takuto0831/where-to-harness"
 }

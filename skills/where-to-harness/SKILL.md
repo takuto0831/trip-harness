@@ -1,11 +1,11 @@
 ---
-name: trip-harness
-description: Plans trips by going back and forth between a person's unspoken preferences and AI fact-checking. Turns vague feelings ("a quiet place", "no chains", "I get bored just staying in the hotel") into search terms, exclusion terms and things to confirm; the AI searches the web and official hotel/restaurant sites, then returns a per-constraint comparison table and recommendations. Unknowns stay "unconfirmed" and become questions to ask by phone. Can hand over Google Search / Google Maps links for people who want to look themselves, and judges names, links and screenshots they bring back. Never auto-fetches booking or review sites. Conversation-only by default; saves Markdown files only when asked. Use when someone says "help me plan a trip", "find a place to stay", "find a restaurant", "where should we stay in X", "compare these hotels", "build an itinerary", or 「旅行の計画を一緒に考えて」「旅行の計画」「宿を探したい」「お店を探して」「〇〇でどこに泊まろう」「旅行の候補を比べたい」「旅程を組んで」. Use proactively whenever travel, lodging, choosing restaurants or itineraries come up.
+name: where-to-harness
+description: Finds where to go, for a whole trip (lodging, areas, itinerary) or just a meal out with no trip (an izakaya in Tokyo tonight), by going back and forth between a person's unspoken preferences and AI fact-checking. Turns vague feelings ("a quiet place", "no chains", "I get bored just staying in the hotel") into search terms, exclusion terms and things to confirm; the AI searches the web and official hotel/restaurant sites, then returns a per-constraint comparison table and recommendations. Unknowns stay "unconfirmed" and become questions to ask by phone. Can hand over Google Search / Google Maps links for people who want to look themselves, and judges names, links and screenshots they bring back. Never auto-fetches booking or review sites. Conversation-only by default; saves Markdown files only when asked. Use when someone says "help me plan a trip", "find a place to stay", "find a restaurant", "find an izakaya for tonight", "where should we eat in X", "where should we stay in X", "compare these hotels", "build an itinerary", or 「旅行の計画を一緒に考えて」「旅行の計画」「宿を探したい」「お店を探して」「居酒屋を探して」「今夜どこで飲もう」「〇〇でご飯どこにしよう」「〇〇でどこに泊まろう」「旅行の候補を比べたい」「旅程を組んで」. Use proactively whenever travel, lodging, choosing restaurants, bars or izakaya, or itineraries come up, even when there's no trip.
 ---
 
-# Trip planning harness
+# Where-to harness: places to stay and places to eat
 
-What decides a trip is mostly unspoken know-how ("on a Saturday in late December, a big izakaya is probably full of office parties").
+What decides where to go, on a trip or for one dinner, is mostly unspoken know-how ("on a Saturday in late December, a big izakaya is probably full of office parties").
 This skill's job is **not to hand out answers, but to translate that know-how into something checkable, and go back and forth with the person**.
 
 ## Language
@@ -36,11 +36,11 @@ This skill's job is **not to hand out answers, but to translate that know-how in
 | Mode | When | What to do |
 |---|---|---|
 | **Conversation mode** (default) | The person hasn't asked to save | Create or write no files. Wherever the flow below says "write to / add to …md", **show the same table or list in the conversation** (constraints, candidates, questions, decisions). Don't repeat everything each time; show only what changed |
-| **Save mode** | The person says "save this", "keep a record", "write it to a file" / the working folder already has `trips/` and they're continuing it | Write files to the working folder in the layout under "Files", and keep adding to them on every turn |
+| **Save mode** | The person says "save this", "keep a record", "write it to a file" / the working folder already has `outings/` and they're continuing it | Write files to the working folder in the layout under "Files", and keep adding to them on every turn |
 
 - In conversation mode, when the itinerary is settled or there's a lot of information, ask once: "Do you want me to save this to files?" If they decline, don't ask again
 - When switching to save mode, write out the constraints, candidates, questions and decisions agreed so far in the conversation
-- **Never create files in unintended places**: before the first write in save mode, show the full path (e.g. `/Users/…/travel/trips/2027-01-onsen/`) and ask "Is it OK to save here?"; write only after they agree. If the working folder looks unrelated to travel (a git repo, the home folder, the top of the Desktop), say so and suggest another folder
+- **Never create files in unintended places**: before the first write in save mode, show the full path (e.g. `/Users/…/travel/outings/2027-01-onsen/`) and ask "Is it OK to save here?"; write only after they agree. If the working folder looks unrelated to trips or outings (a git repo, the home folder, the top of the Desktop), say so and suggest another folder
 - In conversation mode, write **no files anywhere**, including temporary folders
 
 ## Files
@@ -49,15 +49,15 @@ Inside this skill's folder (next to this SKILL.md). **Read only; never write her
 
 | File | Contents |
 |---|---|
-| `templates/` | Templates for a trip folder. Each file's format is in the comment at its top |
+| `templates/` | Templates for an outing folder (a trip or a meal out). Each file's format is in the comment at its top |
 | `dictionary.md` | Core dictionary: unspoken preference → observable signals, what the AI judges, how to confirm. Language-independent |
 | `locales/<locale>.md` | Locale packs: for each core entry, search and exclusion terms in the destination's language and local conditions, plus local sites (e.g. `locales/ja-JP.md` for Japan) |
 
 In save mode, create these in the person's working folder (the current directory):
 
 ```
-profile.md                      # household profile, reused across trips
-trips/<YYYY-MM-area>/
+profile.md                      # household profile, reused across outings
+outings/<YYYY-MM-area>/
 ├── constraints.md              # constraint ledger
 ├── candidates.md               # candidate comparison
 ├── questions.md                # things to confirm
@@ -67,10 +67,11 @@ trips/<YYYY-MM-area>/
 
 ## Getting started
 
-1. If the working folder has `trips/`, list the trips in progress and ask "which one are we continuing, or is this a new trip?" If continuing, read that trip's 5 files and `profile.md` before talking
+1. If the working folder has `outings/`, list the outings in progress (trips and meals) and ask "which one are we continuing, or is this a new one?" If continuing, read that outing's 5 files and `profile.md` before talking
 2. Read the bundled core dictionary `dictionary.md` (don't fetch it from the internet; it updates with the plugin)
-3. For a new trip, ask the purpose, dates, who's going, how they'll get around, and the destination (if decided). Anything undecided can be "TBD". **In conversation mode, create no files.** Only in save mode, create `trips/<YYYY-MM-area>/`, copy the 5 files from templates/, and if `profile.md` doesn't exist create it from templates/ and fill in only what you know
-4. Once the destination's country is known, read the matching locale pack in `locales/` if there is one (e.g. `ja-JP.md` for Japan)
+3. **Food only (no trip)**: if the person just wants a place to eat or drink ("an izakaya in Shibuya tonight"), don't ask about lodging, transport or an itinerary. Ask only what the search needs: area, date and time, how many people, budget if it matters, and the preferences. Use step 2 of the flow (translate, search, compare) and step 3 (judge what comes back); skip area comparison and the itinerary unless they ask. In save mode, use the same folder layout with a short name like `outings/<YYYY-MM-DD-area-food>/` and leave itinerary.md empty
+4. For a new trip, ask the purpose, dates, who's going, how they'll get around, and the destination (if decided). Anything undecided can be "TBD". **In conversation mode, create no files.** Only in save mode, create `outings/<YYYY-MM-area>/`, copy the 5 files from templates/, and if `profile.md` doesn't exist create it from templates/ and fill in only what you know
+5. Once the destination's country is known, read the matching locale pack in `locales/` if there is one (e.g. `ja-JP.md` for Japan)
 
 ## Flow
 
