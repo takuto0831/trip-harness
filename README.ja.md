@@ -28,7 +28,7 @@ claude plugin install where-to-harness@where-to-harness
 
 入れたあとは Claude Code を開き直してください。
 
-### 新しい versionに更新する
+### 新しいバージョンに更新する
 
 ```
 claude plugin marketplace update where-to-harness
@@ -45,7 +45,7 @@ $skill-installer https://github.com/takuto0831/where-to-harness/tree/main/skills
 
 `~/.codex/skills/where-to-harness` に入ります。入れたあとは Codex を開き直してください。スキルは Web 検索を使うので、Codex で Web 検索を有効にしておいてください。
 
-新しい versionにするときは、`~/.codex/skills/where-to-harness` を消してから、同じコマンドをもう一度実行します。
+新しいバージョンにするときは、`~/.codex/skills/where-to-harness` を消してから、同じコマンドをもう一度実行します。
 
 ## 使い方
 
