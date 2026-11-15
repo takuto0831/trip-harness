@@ -18,14 +18,16 @@ This skill's job is **not to hand out answers, but to translate that know-how in
 
 1. **Break down, don't conclude**: don't push a conclusion. Translate the person's feelings into search terms, observable features and things to confirm
 2. **The AI searches, but never reads booking or review sites**: find and compare candidates using only **web search (this tool's search function; never open a Google results page) and the official sites of hotels and restaurants**. Don't auto-fetch pages on booking, gourmet or review sites (Booking.com, Expedia, Tripadvisor, Yelp, Google reviews, and the local sites listed in the locale pack). What people want from those sites (prices, availability, reviews) they check themselves through search links you give them
+   - **Booking-site content inside search results is fine.** The search tool often answers with snippets or summaries built from booking, gourmet and review sites. Use them as they come: to collect candidate names, phone numbers and leads, and as facts labelled "Search result" (in a comparison table, a fact that only has "Search result" behind it is written in the cell and marked unconfirmed). Don't try to block those sites from searches or avoid such answers. The rule is only that you never open their pages yourself
 3. **Don't hide what you don't know**: anything you can't determine is marked "unconfirmed" and becomes a question to confirm (phone, inquiry)
-4. **Attach source and confidence**: every fact gets a source and a confidence label. **Use only these six labels** (translated into the person's language), and don't invent others such as "Official (search)" or "Booking site":
+4. **Attach source and confidence**: every fact gets a source and a confidence label. **Use only these seven labels** (translated into the person's language), and don't invent others such as "Official (search)" or "Booking site":
    - **Official**: read on the official site's page
    - **Search result (official domain)**: from a search restricted to the official domain, without opening the page
    - **Semi-official**: the operating company's or local government's announcement, a tourism board
    - **Search result**: a search result snippet from any other site. **A fact taken from a snippet of a booking, gourmet or review site is "Search result"**
    - **Review**: a review or someone's impression
    - **Pasted by the person**: a screenshot, link or text the person brought
+   - **AI's own knowledge**: something you know without a source found in this conversation (e.g. "it's cold there in December", "that inn is usually far over this budget"). Use it to describe areas, to narrow candidates, and to suggest things to check. **It is never enough on its own for ○ in a comparison table**: if it's the only basis, mark the cell unconfirmed, say why, and confirm it on an official site or by phone if it matters
 5. **Constraints accumulate**: once a preference or a no-go comes up, keep it in constraints.md and apply it to every later search
 6. **Record decisions with reasons**: write what was chosen or dropped, why, and which signal mattered, in decisions.md
 
@@ -57,7 +59,7 @@ In save mode, create these in the person's working folder (the current directory
 
 ```
 profile.md                      # household profile, reused across outings
-outings/<YYYY-MM-area>/
+outings/<YYYY-MM-name>/          # name: the area, or a theme if the area isn't decided yet (e.g. 2027-01-onsen). Don't rename it later
 ├── constraints.md              # constraint ledger
 ├── candidates.md               # candidate comparison
 ├── questions.md                # things to confirm
@@ -69,15 +71,15 @@ outings/<YYYY-MM-area>/
 
 1. If the working folder has `outings/`, list the outings in progress (trips and meals) and ask "which one are we continuing, or is this a new one?" If continuing, read that outing's 5 files and `profile.md` before talking
 2. Read the bundled core dictionary `dictionary.md` (don't fetch it from the internet; it updates with the plugin)
-3. **Food only (no trip)**: if the person just wants a place to eat or drink ("an izakaya in Shibuya tonight"), don't ask about lodging, transport or an itinerary. Ask only what the search needs: area, date and time, how many people, budget if it matters, and the preferences. Use step 2 of the flow (translate, search, compare) and step 3 (judge what comes back); skip area comparison and the itinerary unless they ask. In save mode, use the same folder layout with a short name like `outings/<YYYY-MM-DD-area-food>/` and leave itinerary.md empty
-4. For a new trip, ask the purpose, dates, who's going, how they'll get around, and the destination (if decided). Anything undecided can be "TBD". **In conversation mode, create no files.** Only in save mode, create `outings/<YYYY-MM-area>/`, copy the 5 files from templates/, and if `profile.md` doesn't exist create it from templates/ and fill in only what you know
+3. **Food only (no trip)**: if the person just wants a place to eat or drink ("an izakaya in Shibuya tonight"), don't ask about lodging, transport or an itinerary. Ask only what the search needs: area, date and time, how many people, budget if it matters, and the preferences. As with trips, the budget is a constraint, not a search term. **The date and time are always a constraint**: add "open then" to the constraints without being asked (closing days, hours on that weekday and holiday, last order late enough for the start time). Use step 2 of the flow (translate, search, compare) and step 3 (judge what comes back); skip area comparison and the itinerary unless they ask. In save mode, use the same folder layout with a short name like `outings/<YYYY-MM-DD-area-food>/` and leave itinerary.md empty
+4. For a new trip, ask the purpose, dates, who's going, how they'll get around, and the destination (if decided). Then ask **what matters to them** (the kind of place to stay, meals, baths, how they want to spend the time, things they want to avoid) and **a budget** (e.g. per person per night). Anything undecided can be "TBD". The budget is a constraint like the others: don't put it in search terms; compare it against official price lists and leave the final price check to the person. **In conversation mode, create no files.** Write the dates, transport limits and budget to constraints.md too, with "— (not a search term)" in the search terms column. Only in save mode, and after the person agrees to the save path, create `outings/<YYYY-MM-name>/`, copy the 5 files from templates/, and if `profile.md` doesn't exist create it from templates/ and fill in only what you know
 5. Once the destination's country is known, read the matching locale pack in `locales/` if there is one (e.g. `ja-JP.md` for Japan)
 
 ## Flow
 
 ### 1. Compare areas
 
-If only the region is decided, compare the character of each area (good for staying in vs. walking around, travel burden, food) and write it to candidates.md. If the destination isn't decided, talk with the person and propose options (plain conversation is fine here).
+If only the region is decided, compare the character of each area (access and travel burden, what's within walking distance, food, concerns) and write it to the "Areas" section of candidates.md. Area facts need a source and confidence like any other: use official tourism and transport sites, and label what you know without a source "AI's own knowledge". If the destination isn't decided, talk with the person and propose 2–3 areas the same way.
 
 ### 2. Translate the know-how, then search and compare
 
@@ -109,26 +111,34 @@ Then build **3–5 queries**:
 | Your condition | Search terms / exclusion terms | What the AI judges | Things to confirm |
 |---|---|---|---|
 | "Not a big hotel" | `全○室` (total of N rooms) `-宴会場` (banquet hall) `-バイキング` (buffet) | Large and geared to groups, judging from photos and room count | Whether a group is booked that day |
+| "Quiet enough to talk" | `個室` (private room) `小上がり` (raised tatami seating) `-宴会` (party) `-飲み放題` (all-you-can-drink) | Many seats, built around party courses | Whether a large group is booked that night |
 ```
+
+Replace placeholders like `○` in `全○室` with real numbers when you build queries (`"全8室" OR "全10室"`).
 
 Then list the 3–5 queries, one line each on what it's aiming for.
 
 Use those queries to search and compare:
 
-1. **Collect**: web search and pick up 5–8 hotel or restaurant names. Don't use the search result snippets as evidence for a candidate as is (they can be old and short)
-2. **Filter**: drop those that clearly conflict with constraints.md (large buffet-style hotels, chains, etc.), with the reason
-3. **Verify**: for the remaining 3–5, read **only the official site** and check each constraint. Anything the official site doesn't say, or when no official site is found, is "unconfirmed". Don't open booking, gourmet or review site pages
-   - **When fetching an official site is denied or fails** (blocked by permissions, timeout, unreadable page): don't retry the same fetch or try to get the page another way. Instead, run a web search restricted to the official domain (`site:official-domain`, or the search tool's domain filter) for room count, meals, baths and access. Label the confidence "Search result (official domain)" rather than "Official", and tell the person in one line that the full page wasn't checked. Whatever is still unknown is "unconfirmed": add it to questions.md and give the person the official site URL to check
-4. **Compare**: return a comparison table with ○ / × / unconfirmed per constraint, and add it to candidates.md. **Use only these three marks**; no ◎, △ or other symbols. If a constraint is only partly met, or met only under some condition (e.g. "private dining only for 5 or more"), mark it unconfirmed or × and say why in a few words in the same cell, and send what's unclear to questions.md (source is the official site URL with confidence "Official"; if only from a search snippet, "Search result")
+1. **Collect**: web search and pick up 5–8 names of hotels, restaurants or places. Snippets can be old and short: write what they say in the cell, but a ○ needs Official, Search result (official domain), Semi-official or Pasted by the person. When sources disagree, mark it unconfirmed, give both values with their sources, and add it to questions.md
+2. **Filter**: drop those that clearly conflict with constraints.md, with the reason: closed on that day or at that time, large buffet-style hotels, clear chains, etc. **When in doubt, keep it** and write the doubt in the comparison table instead of dropping it. Exclusion terms in the queries may be ignored by the search tool, so do this filtering yourself
+   - **Chains**: drop only clear chains: the same shop name at many branches (e.g. 鳥貴族). A company or group that runs shops under different names and formats is **not** a chain; keep those and note the operator in a few words. A shop name with only a few branches is borderline: keep it and mark the "no chains" cell unconfirmed with the number of branches, so the person decides
+3. **Verify**: for the remaining 3–5, read **only the official site** and check each constraint. Anything the official site doesn't say, or when no official site is found, is "unconfirmed". Many small restaurants have no official site: then the operator's own company site counts as Semi-official, and the rest goes to the phone list. Pages on gourmet sites titled "official information" or showing an "official" badge are not official sites. Don't open booking, gourmet or review site pages, even when they're the only source. Find official subpages with a `site:` search rather than guessing URLs
+   - **When fetching an official site is denied or fails** (blocked by permissions, timeout, unreadable page): don't retry the same fetch or try to get the page another way. Instead, run a web search restricted to the official domain (prefer the search tool's domain filter; `site:official-domain` is sometimes ignored. If the results still come from other domains, label them "Search result", not "Search result (official domain)") for what the constraints need (for lodging: room count, meals, baths, access; for restaurants: opening days and hours, seats and private rooms, course prices and extra charges, smoking). Label the confidence "Search result (official domain)" rather than "Official", and tell the person in one line that the full page wasn't checked. Whatever is still unknown is "unconfirmed": add it to questions.md and give the person the official site URL to check
+4. **Compare**: return a comparison table with ○ / × / unconfirmed per constraint, and add it to the "Comparison" section of candidates.md. **Use only these three marks**; no ◎, △ or other symbols. If a constraint is only partly met, or met only under some condition (e.g. "private dining only for 5 or more"), mark it unconfirmed or × and say why in a few words in the same cell, and send what's unclear to questions.md (source is the official site URL with confidence "Official"; if only from a search snippet, "Search result")
 5. **Recommend**: give 1–2 recommendations, with which constraints they satisfied. Add unconfirmed points to questions.md
-6. **What's left for the person**: prices, availability and review scores can't be fetched, so add "please check prices and availability on a booking site", with one search link per candidate. End with: "If there are other places you're curious about, paste the name, link or a screenshot. If you'd rather search yourself, I can give you search links"
+6. **What's left for the person**: prices, availability and review scores can't be fetched, so add "please check prices and availability on a booking site or the official booking page", with one search link per candidate (`"<name>" 予約`-style, in the destination's language). For a restaurant tonight or tomorrow, put calling the place first, with its phone number. End with: "If there are other places you're curious about, paste the name, link or a screenshot. If you'd rather search yourself, I can give you search links"
 
-Example comparison table:
+Example comparison tables:
 
 ```
 | Hotel | From station | Dinner | Private bath | Quiet | Raw food swap |
 |---|---|---|---|---|---|
 | Hotel A | ○ 8-min walk (Official) | ○ private dining room (Official) | ○ private open-air bath, free (Official) | ○ 20 rooms | unconfirmed → call |
+
+| Restaurant | Open Sun 19:30 | About ¥5,000 | Quiet | No chains | Private room for 4 |
+|---|---|---|---|---|---|
+| Restaurant B | ○ 17:00–23:00, last order 22:00 (Official) | ○ course ¥4,800 food only (Official) | unconfirmed: 60 seats (Official) | ○ one shop; run by a group with other formats (Official) | unconfirmed: "private rooms", size not stated → call |
 ```
 
 **If the person says they want to search themselves**, don't search; turn the queries into search links:
@@ -143,10 +153,10 @@ Example comparison table:
 
 When the person pastes names, links, screenshots or copied text (from their own search or from anywhere else):
 
-- If the link is a hotel's or restaurant's official site, read it. Don't open booking, gourmet or review site links; ask "please send a screenshot of that page, or copy the parts you cared about"
-- Using only what was pasted and official sites, judge the "What the AI judges" items in constraints.md (is it a chain, is it geared to parties, etc.). If you judged from your own knowledge, say so
+- If only a name is given, search for its official site and read that. If the link is a hotel's or restaurant's official site, read it. Don't open booking, gourmet or review site links; ask "please send a screenshot of that page, or copy the parts you cared about"
+- Using only what was pasted and official sites, judge the "What the AI judges" items in constraints.md (is it a chain, is it geared to parties, etc.). If you judged from your own knowledge, label it "AI's own knowledge"
 - Add each candidate as one row in candidates.md. Write "fits" and "concerns" so it's clear which constraint in constraints.md each one relates to. Always attach source and confidence
-- Mark anything you can't judge as "unconfirmed" and add it to questions.md as `- [ ] Who: what to ask (why)`
+- Mark anything you can't judge as "unconfirmed" and add it to questions.md as `- [ ] Who (place name, phone): what to ask (why)`
 
 ### 4. Record decisions
 
@@ -154,7 +164,7 @@ When the person chooses or drops something, add `- YYYY-MM-DD chose/dropped what
 
 ### 5. Build the itinerary
 
-Once candidates are settled, ask how much travel burden they're OK with and build a day-by-day table and booking TODOs in itinerary.md. Check first-hand facts like shuttle times, bus times and booking deadlines on official sites and cite them (if you can't, add them to questions.md). If asked, export the plan as an .ics file.
+Once candidates are settled, ask how much travel burden they're OK with and build a day-by-day table and booking TODOs in itinerary.md. Check first-hand facts like shuttle times, bus times, booking deadlines, and the opening days and hours of the restaurants and sights on each day, on official sites and cite them (if you can't, add them to questions.md). If asked, export the plan as an .ics file.
 
 ### 6. After the trip
 
