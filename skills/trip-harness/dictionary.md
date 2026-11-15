@@ -1,38 +1,39 @@
-# 暗黙知 → シグナル変換辞書
+# Core dictionary: unspoken preference → signals
 
-人の曖昧な感覚を、検索語・除外語、AI が判定すること、確認タスクに翻訳するための辞書。
-プラグインに同梱して配る。新しい項目の送り方は repo の `CONTRIBUTING.md`。
+Turns a person's vague feeling into observable signals, what the AI judges, and how to confirm. Bundled with the plugin. How to send new entries: the repo's `CONTRIBUTING.md`.
 
-- **検索語・除外語**: 検索に入れる語。`-語` は除外、`"…"` は完全一致
-- **AI が判定すること**: 検索語にしにくいもの。公式サイトや、人が貼った店名・説明を読んで判定する
-- **確認方法**: サイトで見る／電話で聞く（questions.md に送る）
-- **当てはまる条件**: 地域・季節・同行者のタイプ。無ければ「一般」
+This file is language-independent. **Search and exclusion terms live in the locale packs** (`locales/<locale>.md`), because terms only work in the destination's language. When there's no pack for the destination, build the terms from the "Observable signals" column in the destination's language.
 
-| 暗黙知 | 観測シグナル | 検索語・除外語 | AI が判定すること | 確認方法 | 当てはまる条件 |
-|---|---|---|---|---|---|
-| うるさそう／落ち着いて食べたい | 飲み放題付き宴会コース、席数が多い、宴会場・大個室、チェーン | `カウンター` `小上がり` `-宴会` `-飲み放題` `-団体` | チェーンか、席数が多そうか | 当日に団体予約が入っているかを電話で | 年末・週末に強く効く |
-| チェーンは避けたい | 系列店の多さ、全国チェーンの屋号 | 地域の有名チェーン名を `-` で並べる | 店名・屋号からチェーンか | — | 一般 |
-| 地元感がほしい | 地元資本、地元の食材・郷土料理、常連が多い | `郷土料理` `地物` `地酒` `-チェーン` | 観光客向けか地元向けか | — | 一般 |
-| 料理が丁寧そう | 席で炊く釜飯、料理長の名前が前面、出来立ての提供 | `"料理長"` `釜飯` `コース` | 説明文から手間のかけ方 | — | 一般 |
-| 食材の質が読めない | ブランド名・タグの明記、産地、活／冷凍、量（杯数・g）、通常プランとの差額 | `"タグ付き"` `ブランド名` `活` | プランの説明から活か冷凍か、量は十分か | 量と状態を宿・店に問い合わせ | カニなど季節の食材 |
-| 生ものを避けたい（体調・好み） | 生もの→加熱への変更可否、加熱料理の選択肢 | `加熱` `焼き` `炙り` `煮付け` | 料理が生もの中心か | 生ものを加熱に替えられるかを宿・店に | 同行者に食の制限がある |
-| 同じ系統の料理が続くと飽きる | 食の選択肢の多さ、夕食の自由度（素泊まり・朝食のみ） | `素泊まり` `朝食のみ` | 旅程全体で料理が偏っていないか | — | 一般 |
-| 立地が良い／少し歩いて楽しみたい | 中心地まで徒歩何分、坂・階段、冬の足元、夜の暗さ | `徒歩` `駅近` `温泉街` | 地図上の距離と高低差 | — | 一般 |
-| 宿にこもるだけだと飽きる | 徒歩圏の街並み・足湯・市場・ギャラリーの有無 | `散策` `足湯` `温泉街` `市場` | 宿の周りに歩ける場所があるか | — | 宿こもり型ではない人 |
-| 体に負担をかけたくない | 移動回数・乗り換え、送迎の有無、貸切風呂・客室風呂、部屋食・個室、禁煙 | `送迎` `貸切風呂` `客室露天` `個室` `禁煙` | 旅程全体の移動の負担 | 送迎の時刻と予約期限を宿に | 妊娠中・高齢・子連れ |
-| 冬の移動が不安 | 雪道、バスの本数、年末年始ダイヤ、代替手段 | `年末年始ダイヤ` `時刻表` `タクシー` | 運休したときの代わりがあるか | 直前にダイヤを再確認、タクシー会社の番号を控える | 冬・雪国・公共交通のみ |
-| 割引があるはず | 割引・キャンペーンの現行状況、発売日・受付日 | `"キャンペーン"` `割引` `受付開始` | 一次情報（公式・自治体）で今も有効か | 受付日をカレンダーに入れる | 一般 |
-| 子どもが騒いでも気まずくない店がいい | 座敷・小上がり・個室、子ども用メニューや椅子、開店直後の空き具合 | `座敷` `個室` `"お子様"` `子連れ` `-カウンターのみ` | 静かさを売りにした店・コースのみの店ではないか | 子ども用の椅子・取り分けの可否、未就学児が入れるかを店に | 子連れ |
-| 子どもの昼寝・機嫌に合わせて動きたい | 1 か所の滞在時間、移動 1 回の長さ、屋内の休憩場所・授乳室、ベビーカーで通れるか（段差・砂利・階段） | `授乳室` `ベビーカー` `屋内` `キッズスペース` | 旅程の移動が昼寝の時間帯に重なるか、1 日の立ち寄りが多すぎないか | ベビーカーの貸出・預かりを施設に | 乳幼児連れ |
-| 運転で疲れたくない | 1 日の運転時間、山道・峠・狭い道、休憩できる道の駅、宿の駐車場から玄関まで | `道の駅` `駐車場` `インターから` | 1 日の運転時間が長すぎないか、夜の山道が入っていないか | — | 車・レンタカー |
-| 駐車場で困りたくない | 駐車場の有無・台数・料金、予約制か、車高・車幅の制限、提携駐車場までの距離 | `駐車場あり` `無料駐車場` `提携駐車場` | 街なかの宿・店で駐車場が別の場所になっていないか | 台数と予約の要否、大きい車が入るかを宿・店に | 車・レンタカー。都市部と観光地の中心で強く効く |
-| 暑い中を長く歩きたくない | 屋外を歩く時間、日陰・屋内の比率、駅やバス停からの距離、昼の時間帯の予定 | `屋内` `駅直結` `アーケード` `涼しい` | 真昼に屋外の予定が続いていないか | — | 夏。高齢・子連れで強く効く |
-| 並びたくない／人混みを避けたい | 予約の可否、整理券・時間指定の有無、開店直後や平日の空き具合、連休・行事との重なり | `予約可` `整理券` `時間指定` `穴場` | 行列で知られた店・施設か、行事や連休と日程が重なるか | 予約できるか、空いている時間帯を店・施設に | 連休・観光シーズン |
-| 高すぎないが安っぽいのは嫌 | 部屋数の少なさ、改装した年、食事が部屋数に見合う形か（バイキングか会席か）、同じ地域の相場との差 | `全○室` `リニューアル` `-バイキング` `-格安` | 写真と部屋数から大型の団体向けか、相場から大きく外れていないか | — | 一般 |
-| あとから追加料金で驚きたくない | 入湯税・サービス料・駐車料金・暖房費、休前日や繁忙期の加算、別注料理、貸切風呂の料金 | `入湯税` `サービス料込` `"別途"` | 公式サイトの料金表に「別途」の項目がいくつあるか | 総額と現地払いの内訳を宿に | 宿。繁忙期に強く効く |
-| 古くても清潔ならいい | 改装した年、水まわり（トイレ・風呂）が新しいか、禁煙室、和室の畳・寝具の説明 | `リニューアル` `改装` `禁煙` `洗浄機能付きトイレ` | 写真が水まわりを見せているか、改装の時期が書いてあるか | トイレ・風呂が部屋にあるか、共用かを宿に | 老舗旅館・古い建物の宿 |
-| 夜は静かに眠りたい | 建物の構造（木造か鉄筋か）、宴会場・カラオケの有無、大通りや線路からの距離、部屋の位置 | `離れ` `全○室` `-宴会場` `-カラオケ` | 団体・宴会を受ける宿か、繁華街や線路のすぐそばか | 角部屋・上の階など静かな部屋を頼めるかを宿に | 眠りが浅い人。木造の宿で強く効く |
-| 朝はゆっくりしたい | チェックアウトの時刻、朝食の最終時刻、朝食なしプラン、レイトチェックアウトの有無 | `"チェックアウト11時"` `レイトチェックアウト` `朝食なし` | 翌日の旅程が早い出発を前提にしていないか | 朝食の最終時刻と、チェックアウト延長の料金を宿に | 一般 |
-| 一人でも入りやすい店がいい | カウンター席、1 人前から頼める料理、定食・小皿、コースのみ・2 名からではないか | `カウンター` `"お一人様"` `定食` `-"2名様より"` | 鍋・大皿・コース中心の店ではないか | 1 人で予約できるかを店に | 一人旅 |
-| 好みがばらばらな数人で食べたい | 品数の多さ、単品で頼めるか、席の予約可否、肉・魚・野菜のどれもあるか | `一品料理` `単品` `席のみ予約` `-"コースのみ"` | 専門店（1 種類の料理だけ）ではないか、人数分の席がまとまるか | 人数分の席と、苦手な食材の対応を店に | 3 人以上のグループ |
-| 雨でも楽しめるようにしたい | 屋内施設（美術館・市場・アーケード・体験）、駅からの屋根のある動線、屋外の予定の入れ替えやすさ | `屋内` `雨の日` `アーケード` `体験` `美術館` | 旅程が屋外だけの日になっていないか、入れ替える先があるか | 屋外の予約（船・ロープウェイなど）の取消期限と運休の基準を施設に | 梅雨・台風の時期 |
+- **Observable signals**: features you can see on an official site, a map, a timetable or a menu
+- **What the AI judges**: things hard to turn into search terms. Judged by reading official sites, or names and descriptions the person pastes
+- **How to confirm**: look on the site / ask by phone (goes to questions.md)
+- **When it applies**: season, type of traveler, kind of place. "General" if none
+
+| Unspoken preference | Observable signals | What the AI judges | How to confirm | When it applies |
+|---|---|---|---|---|
+| Probably noisy / want to eat in peace | Party courses with all-you-can-drink, many seats, banquet halls or large private rooms, chains | Is it a chain, does it look like it has many seats | Ask by phone whether a group booking is in that day | Weekends and party seasons |
+| Avoid chains | Many branches, well-known chain names | Is it a chain, judging from the name | — | General |
+| Want a local feel | Locally owned, local ingredients and regional dishes, many regulars | Is it aimed at tourists or locals | — | General |
+| Food that looks carefully made | Dishes cooked at the table, the head chef named up front, served freshly made | How much care goes into it, judging from the description | — | General |
+| Can't tell the quality of the ingredients | Brand names or tags stated, origin, live vs. frozen, quantity (pieces, grams), price gap from the standard plan | Live or frozen, enough quantity, judging from the plan description | Ask the hotel or restaurant about quantity and condition | Seasonal specialties (crab, etc.) |
+| Avoid raw food (health or taste) | Whether raw dishes can be swapped for cooked ones, cooked options | Is the meal mostly raw | Ask whether raw dishes can be swapped for cooked | Someone in the group has dietary limits |
+| Get bored eating the same kind of food | Range of food options, freedom at dinner (room only, breakfast only) | Is the food skewed across the whole itinerary | — | General |
+| Good location / want to walk around a bit | Minutes on foot to the center, slopes and stairs, footing in winter, how dark it is at night | Distance and elevation on the map | — | General |
+| Get bored just staying in the hotel | Streets, footbaths, markets or galleries within walking distance | Are there places to walk around near the hotel | — | People who don't just stay in |
+| Don't want to strain the body | Number of transfers, shuttle service, private or in-room baths, meals in the room or a private room, non-smoking | Travel burden over the whole itinerary | Ask the hotel for shuttle times and booking deadline | Pregnant, elderly, with kids |
+| Worried about getting around in winter | Snowy roads, bus frequency, holiday timetables, alternatives | Is there a fallback if service is suspended | Re-check timetables right before; note a taxi company's number | Winter, snowy areas, public transport only |
+| There should be a discount | Current discounts and campaigns, sale and application dates | Still valid according to a primary source (official, local government) | Put the application date on the calendar | General |
+| A restaurant where it's OK if the kids are loud | Floor seating, private rooms, kids' menu and chairs, how empty it is right after opening | Is it a place that sells quiet, or courses only | Ask about kids' chairs, sharing plates, whether preschoolers are allowed | With kids |
+| Want to move around the kids' naps and moods | Time spent at each place, length of each leg, indoor rest spots and nursing rooms, stroller access (steps, gravel, stairs) | Does travel overlap nap time, too many stops in a day | Ask facilities about stroller rental or storage | With babies or toddlers |
+| Don't want to get tired driving | Driving time per day, mountain roads, passes, narrow roads, rest stops, distance from the parking lot to the entrance | Too much driving in a day, mountain roads at night | — | Car, rental car |
+| Don't want trouble parking | Parking available, number of spaces, fees, reservation needed, height and width limits, distance to partner lots | Is the parking for a downtown hotel or restaurant somewhere else | Ask about the number of spaces, whether a reservation is needed, whether a large car fits | Car, rental car. Strong in cities and tourist centers |
+| Don't want to walk long in the heat | Time walking outdoors, share of shade and indoors, distance from stations and bus stops, midday plans | Are there outdoor plans back to back at midday | — | Summer. Strong for elderly and kids |
+| Don't want to queue / avoid crowds | Reservations accepted, numbered tickets or timed entry, how empty right after opening or on weekdays, overlap with holidays and events | Is it known for lines, do the dates overlap with events or holidays | Ask whether reservations are possible and when it's quiet | Holidays, tourist season |
+| Not too expensive, but not cheap-looking | Few rooms, year of renovation, meal style that fits the room count (buffet or set course), gap from local average prices | Is it a large place for groups, judging from photos and room count; far off the local average | — | General |
+| Don't want surprise extra charges | Local taxes, service charges, parking and heating fees, surcharges before holidays or in peak season, à la carte extras, private bath fees | How many "extra charge" items are on the official price list | Ask the hotel for the total and what's paid on site | Lodging. Strong in peak season |
+| Old is fine if it's clean | Year of renovation, whether bathrooms and toilets are new, non-smoking rooms, descriptions of bedding | Do the photos show the bathrooms, is the renovation date stated | Ask whether toilet and bath are in the room or shared | Long-established inns, old buildings |
+| Want to sleep quietly at night | Building structure (wood or concrete), banquet halls or karaoke, distance from main roads and railways, room position | Does it take groups and parties, is it right next to a nightlife area or railway | Ask whether a quiet room (corner, upper floor) can be requested | Light sleepers. Strong in wooden buildings |
+| Want a slow morning | Check-out time, last breakfast time, no-breakfast plans, late check-out | Does the next day's itinerary assume an early start | Ask the last breakfast time and the late check-out fee | General |
+| A restaurant that's easy to go to alone | Counter seats, dishes for one, set meals and small plates, not courses-only or two-person minimum | Is it mainly hot pots, large platters or courses | Ask whether you can book for one | Solo travel |
+| Eating with several people who like different things | Many dishes, à la carte available, table-only booking, meat, fish and vegetables all available | Is it a specialty place (one kind of dish only), can the whole group sit together | Ask about seats for the group and handling disliked ingredients | Groups of 3 or more |
+| Want it to be fun even if it rains | Indoor places (museums, markets, covered arcades, hands-on activities), covered routes from the station, how easy outdoor plans are to swap | Is any day outdoor-only, is there something to swap in | Ask outdoor bookings (boats, ropeways) about cancellation deadlines and suspension rules | Rainy and typhoon seasons |

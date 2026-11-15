@@ -4,13 +4,13 @@
     "name": "takuto0831"
   },
   "metadata": {
-    "description": "旅行計画スキル trip-harness を配るマーケットプレイス"
+    "description": "Marketplace for the trip-harness travel planning skill"
   },
   "plugins": [
     {
       "name": "trip-harness",
       "source": "./",
-      "description": "人の暗黙知を検索語に翻訳し、AI が候補を探して比べ、確認タスク・判断ログ・旅程に落とす旅行計画スキル"
+      "description": "Travel planning skill: turns unspoken preferences into search terms, lets the AI find and compare candidates, and keeps things to confirm, decisions and the itinerary"
     }
   ]
 }

@@ -1,23 +1,23 @@
-# 世帯プロファイル
+# Household profile
 
-<!-- 旅行をまたいで使う前提情報。わかったことから埋める。空欄のままでよい -->
+<!-- Background reused across trips. Fill in what you learn; blanks are fine -->
 
-## 人数・同行者
+## People
 - 
 
-## 移動
-- 車: あり／なし
-- 歩ける距離の目安: 
+## Getting around
+- Car: yes / no
+- Comfortable walking distance: 
 
-## 食
-- 好き: 
-- 苦手・NG: 
+## Food
+- Likes: 
+- Dislikes / no-go: 
 
-## 予算感
+## Budget
 - 
 
-## 宿のタイプ
-- 宿こもり型／街歩き型: 
+## Type of stay
+- Stay in / walk around: 
 
-## 苦手な雰囲気
-- 
+## Atmospheres to avoid
+-

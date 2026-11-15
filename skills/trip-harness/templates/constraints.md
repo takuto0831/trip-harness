@@ -1,6 +1,6 @@
-# 制約の台帳
+# Constraint ledger
 
-<!-- 人の発言から積んだ制約。一度出た好み・NG はここに残し、以降の探索に効かせる。状態: 有効／取り下げ -->
+<!-- Constraints built from what the person said. Once a preference or no-go comes up, keep it here and apply it to every later search. Status: active / withdrawn -->
 
-| 制約 | 由来の発言 | 検索語・除外語 | AI が判定すること | 確認方法 | 状態 |
+| Constraint | Original remark | Search terms / exclusion terms | What the AI judges | How to confirm | Status |
 |---|---|---|---|---|---|

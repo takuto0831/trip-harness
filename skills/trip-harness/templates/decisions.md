@@ -1,4 +1,4 @@
-# 判断ログ
+# Decision log
 
-<!-- 書式: - YYYY-MM-DD 何を選んだ／外した — 理由 — 効いたシグナル
-     旅行後に、その行の下へ「  - 実際: どうだったか」を足す -->
+<!-- Format: - YYYY-MM-DD chose/dropped what — reason — signal that mattered
+     After the trip, add "  - Actual: how it went" under that line -->

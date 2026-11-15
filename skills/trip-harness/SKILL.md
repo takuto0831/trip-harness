@@ -1,141 +1,155 @@
 ---
 name: trip-harness
-description: 旅行の計画を、人の暗黙知と AI の裏取りを往復させて進めるスキル。既定は会話だけで進め、頼まれたときだけ作業フォルダの Markdown に保存する。「うるさくない店がいい」「チェーンは嫌」「宿にこもるだけだと飽きる」のような曖昧な感覚を検索語・除外語に翻訳し、AI が Web 検索と宿・店の公式サイトで候補を探して、制約ごとの比較表とおすすめを出す。自分で探したい人には Google 検索・Google マップの検索リンクを渡し、人が見てきた店名・リンク・スクショも判定して、候補表・確認タスク（電話で聞くこと）・判断ログ・旅程にまとめる。予約サイト・グルメサイトのページは自動で取りにいかない。「旅行の計画を一緒に考えて」「旅行の計画」「宿を探したい」「お店を探して」「〇〇でどこに泊まろう」「旅行の候補を比べたい」「旅程を組んで」などと言われたら使う。旅行・宿・飲食店選び・旅程の話題が出たら積極的に使うこと。
+description: Plans trips by going back and forth between a person's unspoken preferences and AI fact-checking. Turns vague feelings ("a quiet place", "no chains", "I get bored just staying in the hotel") into search terms, exclusion terms and things to confirm; the AI searches the web and official hotel/restaurant sites, then returns a per-constraint comparison table and recommendations. Unknowns stay "unconfirmed" and become questions to ask by phone. Can hand over Google Search / Google Maps links for people who want to look themselves, and judges names, links and screenshots they bring back. Never auto-fetches booking or review sites. Conversation-only by default; saves Markdown files only when asked. Use when someone says "help me plan a trip", "find a place to stay", "find a restaurant", "where should we stay in X", "compare these hotels", "build an itinerary", or 「旅行の計画を一緒に考えて」「旅行の計画」「宿を探したい」「お店を探して」「〇〇でどこに泊まろう」「旅行の候補を比べたい」「旅程を組んで」. Use proactively whenever travel, lodging, choosing restaurants or itineraries come up.
 ---
 
-# 旅行計画ハーネス
+# Trip planning harness
 
-旅の決め手は、ほとんどが人の暗黙知（「年末の土曜は大きい居酒屋だと宴会が入っていそう」）にある。
-このスキルの役目は、**答えを出すことではなく、その暗黙知を確かめられる形に翻訳して往復すること**。
+What decides a trip is mostly unspoken know-how ("on a Saturday in late December, a big izakaya is probably full of office parties").
+This skill's job is **not to hand out answers, but to translate that know-how into something checkable, and go back and forth with the person**.
 
-## 原則
+## Language
 
-1. **答えより分解**: 結論を押し付けない。人の感覚を、検索語・観測できる特徴・確認タスクに翻訳する
-2. **AI が探す。ただし予約サイト・グルメサイトのページは読みにいかない**: 候補は AI が **Web 検索（このツールの検索機能。Google の結果ページは開かない）と、宿・店の公式サイト**だけを使って探して比べる。食べログ・一休・じゃらんなどのページは自動で取得しない。そこで見たいこと（料金・空室・口コミ）は、検索リンクを渡して人に見てもらう
-3. **わからないことは隠さない**: 判定できないことは「未確認」と書き、確認タスク（電話・問い合わせ）にする
-4. **出典と確度を付ける**: 事実には出典と確度ラベル（公式／検索結果（公式ドメイン）／準公式／検索結果／口コミ／人が貼った）を付ける
-5. **制約は積み上げる**: 一度出た好み・NG は constraints.md に残し、以降の検索に必ず効かせる
-6. **判断は理由とセットで残す**: 選んだ／外した理由と、効いたシグナルを decisions.md に残す
+- **Reply in the person's language.** These instructions are in English; that does not change the language of the conversation, the tables or saved files
+- **Build search terms in the destination's language**, not the person's. Someone writing in English about Kyoto still gets Japanese search terms (with a short gloss), because those are what find the right places
+- Translate template headings, confidence labels and status words into the person's language when showing or saving them
 
-## 記録のしかた（既定は会話だけ）
+## Principles
 
-**既定は会話モード: ファイルを作らず、会話の中だけで進める。** 1〜2 泊の旅行なら、制約・候補・確認タスクは会話の中の表とリストで足りる。
+1. **Break down, don't conclude**: don't push a conclusion. Translate the person's feelings into search terms, observable features and things to confirm
+2. **The AI searches, but never reads booking or review sites**: find and compare candidates using only **web search (this tool's search function; never open a Google results page) and the official sites of hotels and restaurants**. Don't auto-fetch pages on booking, gourmet or review sites (Booking.com, Expedia, Tripadvisor, Yelp, Google reviews, and the local sites listed in the locale pack). What people want from those sites (prices, availability, reviews) they check themselves through search links you give them
+3. **Don't hide what you don't know**: anything you can't determine is marked "unconfirmed" and becomes a question to confirm (phone, inquiry)
+4. **Attach source and confidence**: every fact gets a source and a confidence label (Official / Search result (official domain) / Semi-official / Search result / Review / Pasted by the person)
+5. **Constraints accumulate**: once a preference or a no-go comes up, keep it in constraints.md and apply it to every later search
+6. **Record decisions with reasons**: write what was chosen or dropped, why, and which signal mattered, in decisions.md
 
-| モード | いつ | どうする |
+## How to record (conversation only by default)
+
+**Default is conversation mode: create no files, keep everything in the conversation.** For a one- or two-night trip, tables and lists in the conversation are enough for constraints, candidates and questions.
+
+| Mode | When | What to do |
 |---|---|---|
-| **会話モード**（既定） | 人が保存を頼んでいないとき | ファイルは作らない・書かない。下の流れで「〜.md に書く／足す」とある所は、**同じ形の表・リストを会話の中で示す**（制約・候補・確認タスク・判断）。毎回すべてを出し直さず、変わった所だけ出す |
-| **保存モード** | 人が「保存して」「記録して」「ファイルに残して」と言ったとき／作業フォルダに既存の `trips/` があり、その続きをするとき | 下の「ファイル」の形で作業フォルダに書き出し、以降はやりとりのたびに書き足す |
+| **Conversation mode** (default) | The person hasn't asked to save | Create or write no files. Wherever the flow below says "write to / add to …md", **show the same table or list in the conversation** (constraints, candidates, questions, decisions). Don't repeat everything each time; show only what changed |
+| **Save mode** | The person says "save this", "keep a record", "write it to a file" / the working folder already has `trips/` and they're continuing it | Write files to the working folder in the layout under "Files", and keep adding to them on every turn |
 
-- 会話モードで、旅程まで固まったときや情報が多くなってきたときは、一度だけ「ファイルに保存しますか？」と聞く。断られたら聞き直さない
-- 保存モードに切り替えたら、それまでに会話で決まった制約・候補・確認タスク・判断をまとめて書き出す
-- **意図しない場所にファイルを作らない**: 保存モードで初めて書く前に、保存先のフルパス（例: `/Users/…/旅行/trips/2027-01-onsen/`）を示して「ここに保存してよいですか？」と聞き、OK をもらってから書く。作業フォルダが git の repo・ホームフォルダ・デスクトップ直下など旅行用ではなさそうな場所なら、そのことを伝えて別のフォルダを提案する
-- 会話モードでは、一時フォルダも含めて**どこにもファイルを書かない**
+- In conversation mode, when the itinerary is settled or there's a lot of information, ask once: "Do you want me to save this to files?" If they decline, don't ask again
+- When switching to save mode, write out the constraints, candidates, questions and decisions agreed so far in the conversation
+- **Never create files in unintended places**: before the first write in save mode, show the full path (e.g. `/Users/…/travel/trips/2027-01-onsen/`) and ask "Is it OK to save here?"; write only after they agree. If the working folder looks unrelated to travel (a git repo, the home folder, the top of the Desktop), say so and suggest another folder
+- In conversation mode, write **no files anywhere**, including temporary folders
 
-## ファイル
+## Files
 
-このスキルのフォルダ（この SKILL.md と同じ場所）にあるもの。**読むだけで、書き込まない**。
+Inside this skill's folder (next to this SKILL.md). **Read only; never write here.**
 
-| ファイル | 中身 |
+| File | Contents |
 |---|---|
-| `templates/` | 旅行フォルダのひな形。書式は各ファイルの先頭のコメントにある |
-| `dictionary.md` | 暗黙知 → シグナル変換辞書 |
+| `templates/` | Templates for a trip folder. Each file's format is in the comment at its top |
+| `dictionary.md` | Core dictionary: unspoken preference → observable signals, what the AI judges, how to confirm. Language-independent |
+| `locales/<locale>.md` | Locale packs: for each core entry, search and exclusion terms in the destination's language and local conditions, plus local sites (e.g. `locales/ja-JP.md` for Japan) |
 
-保存モードのとき、使う人の作業フォルダ（いまのカレントディレクトリ）に作るもの:
+In save mode, create these in the person's working folder (the current directory):
 
 ```
-profile.md                      # 世帯プロファイル。旅行をまたいで使う
-trips/<YYYY-MM-地域>/
-├── constraints.md              # 制約の台帳
-├── candidates.md               # 候補の比較
-├── questions.md                # 確認タスク
-├── decisions.md                # 判断ログ
-└── itinerary.md                # 旅程と予約 TODO
+profile.md                      # household profile, reused across trips
+trips/<YYYY-MM-area>/
+├── constraints.md              # constraint ledger
+├── candidates.md               # candidate comparison
+├── questions.md                # things to confirm
+├── decisions.md                # decision log
+└── itinerary.md                # itinerary and booking TODOs
 ```
 
-## 始めるとき
+## Getting started
 
-1. 作業フォルダに `trips/` があれば、進行中の旅行を一覧して「どれの続きか、新しい旅行か」を聞く。続きなら、その旅行の 5 ファイルと `profile.md` を読んでから話す
-2. 同梱の変換辞書 `dictionary.md` を読む（ネットから取りにいかない。辞書はプラグインの更新で新しくなる）
-3. 新しい旅行なら、目的・日程・同行者・移動手段・行き先（決まっていれば）を聞く。**会話モードではファイルを作らない**。保存モードのときだけ `trips/<YYYY-MM-地域>/` を作って templates/ の 5 ファイルをコピーし、`profile.md` が無ければ templates/ から作ってわかったことだけ埋める
+1. If the working folder has `trips/`, list the trips in progress and ask "which one are we continuing, or is this a new trip?" If continuing, read that trip's 5 files and `profile.md` before talking
+2. Read the bundled core dictionary `dictionary.md` (don't fetch it from the internet; it updates with the plugin)
+3. For a new trip, ask the purpose, dates, who's going, how they'll get around, and the destination (if decided). Anything undecided can be "TBD". **In conversation mode, create no files.** Only in save mode, create `trips/<YYYY-MM-area>/`, copy the 5 files from templates/, and if `profile.md` doesn't exist create it from templates/ and fill in only what you know
+4. Once the destination's country is known, read the matching locale pack in `locales/` if there is one (e.g. `ja-JP.md` for Japan)
 
-## 流れ
+## Flow
 
-### 1. エリアを比べる
+### 1. Compare areas
 
-行き先が地方までしか決まっていなければ、エリアごとの性格（宿こもり向きか街歩き向きか、移動の負担、食の傾向）を比べて candidates.md に書く。行き先が決まっていなければ、人と話して候補を出す（ここは普通の対話でよい）。
+If only the region is decided, compare the character of each area (good for staying in vs. walking around, travel burden, food) and write it to candidates.md. If the destination isn't decided, talk with the person and propose options (plain conversation is fine here).
 
-### 2. 暗黙知を翻訳して、AI が探して比べる
+### 2. Translate the know-how, then search and compare
 
-人が暗黙知を並べたら、1 つずつ辞書を引き、次の 3 つに分ける。辞書に無いものは自分で分解する。
+When the person lists their unspoken preferences, look each one up in the core dictionary and split it into three parts. Break down anything not in the dictionary yourself, in the same shape.
 
-| 分け方 | 中身 |
+| Part | Contents |
 |---|---|
-| 検索語・除外語 | 検索に入れる語と、`-` で外す語 |
-| AI が判定すること | 検索語にしにくいもの（チェーンか、など）。公式サイトや、人が貼ったものを読んで判定する |
-| 確認タスク | 検索でもわからないこと（当日の団体予約など） |
+| Search terms / exclusion terms | Terms to put in the query, and terms to exclude with `-` |
+| What the AI judges | Things hard to turn into search terms (is it a chain, etc.). Judged by reading official sites or what the person pastes |
+| Things to confirm | Things search can't answer (whether a group booking is in that night, etc.) |
 
-翻訳した結果は constraints.md に 1 行ずつ足す（由来の発言はそのまま書く）。
+**Where the search terms come from:**
 
-それから**クエリを 3〜5 本**つくる:
+- If there's a locale pack for the destination, use its terms for the matching entry, and apply its local conditions
+- If there's no pack, or the entry is missing from it, build the terms yourself in the destination's language from the core entry's observable signals, and say they were generated, not taken from a pack
+- When the person's language differs from the destination's, add a short gloss for each term
 
-- **全部の条件を 1 本に詰めない**（0 件になりやすい）。地域＋種類を共通にして、効かせる条件の組み合わせを少しずつ変える
-- 使う演算子は `-`・`"…"`・`OR`・`site:` だけ
-- 1 本ごとに「何を狙ったクエリか」を 1 行添える
+Add each translated preference to constraints.md as one row (quote the original remark as is).
 
-そのクエリで AI が探して比べる:
+Then build **3–5 queries**:
 
-1. **拾う**: Web 検索し、宿・店の名前を 5〜8 件拾う。検索結果の説明文は、そのまま候補の根拠にしない（古い・短い）
-2. **ふるう**: constraints.md の制約に明らかに合わないもの（バイキング中心の大型宿、チェーンなど）を、理由を書いて外す
-3. **裏取りする**: 残った 3〜5 件は、**公式サイトだけ**を読んで制約ごとに確かめる。公式サイトが見つからない・書いていないことは「未確認」にする。予約サイト・グルメサイト・口コミサイトのページは開かない
-   - **公式サイトの取得が拒否された・失敗したとき**（権限で止められた、タイムアウト、読めないページなど）: 同じ取得をやり直したり、別の手段でページを取りにいったりしない。代わりに、Web 検索を公式サイトのドメインだけに絞って（`site:公式ドメイン`、または検索の対象ドメイン指定）客室数・食事・風呂・アクセスを調べる。この場合の確度は「公式」ではなく「検索結果（公式ドメイン）」にし、ページ全体は確かめていないことを人に一言伝える。それでもわからない点は「未確認」にして questions.md に足し、公式サイトの URL を渡して人に見てもらう
-4. **比べる**: 制約ごとに ○／×／未確認 を付けた比較表を返し、candidates.md に足す（出典は公式サイトの URL、確度は「公式」。検索結果の説明文だけなら「検索結果」）
-5. **すすめる**: おすすめを 1〜2 件、どの制約に効いたかと一緒に出す。未確認の点は questions.md に足す
-6. **人に残すこと**: 料金・空室・口コミの点数は取れないので、「予約サイトで料金と空室を見てください」と添え、候補ごとに検索リンクを 1 本付ける。最後に「ほかに気になる宿・店があれば、名前・リンク・スクショを貼ってください。自分で探したければ検索リンクを出します」と一言添える
+- **Don't cram every condition into one query** (it tends to return nothing). Keep area + type in common and vary which conditions each query applies
+- Use only the operators `-`, `"…"`, `OR` and `site:`
+- Add one line per query on what it's aiming for
 
-比較表の例:
+Use those queries to search and compare:
+
+1. **Collect**: web search and pick up 5–8 hotel or restaurant names. Don't use the search result snippets as evidence for a candidate as is (they can be old and short)
+2. **Filter**: drop those that clearly conflict with constraints.md (large buffet-style hotels, chains, etc.), with the reason
+3. **Verify**: for the remaining 3–5, read **only the official site** and check each constraint. Anything the official site doesn't say, or when no official site is found, is "unconfirmed". Don't open booking, gourmet or review site pages
+   - **When fetching an official site is denied or fails** (blocked by permissions, timeout, unreadable page): don't retry the same fetch or try to get the page another way. Instead, run a web search restricted to the official domain (`site:official-domain`, or the search tool's domain filter) for room count, meals, baths and access. Label the confidence "Search result (official domain)" rather than "Official", and tell the person in one line that the full page wasn't checked. Whatever is still unknown is "unconfirmed": add it to questions.md and give the person the official site URL to check
+4. **Compare**: return a comparison table with ○ / × / unconfirmed per constraint, and add it to candidates.md (source is the official site URL with confidence "Official"; if only from a search snippet, "Search result")
+5. **Recommend**: give 1–2 recommendations, with which constraints they satisfied. Add unconfirmed points to questions.md
+6. **What's left for the person**: prices, availability and review scores can't be fetched, so add "please check prices and availability on a booking site", with one search link per candidate. End with: "If there are other places you're curious about, paste the name, link or a screenshot. If you'd rather search yourself, I can give you search links"
+
+Example comparison table:
 
 ```
-| 宿 | 駅から | 夕食 | 貸切風呂・客室露天 | 静かさ | 生ものの変更 |
+| Hotel | From station | Dinner | Private bath | Quiet | Raw food swap |
 |---|---|---|---|---|---|
-| 宿 A | ○ 徒歩 8 分（公式） | ○ 個室食事処（公式） | ○ 貸切露天 無料（公式） | ○ 全 20 室 | 未確認 → 電話 |
+| Hotel A | ○ 8-min walk (Official) | ○ private dining room (Official) | ○ private open-air bath, free (Official) | ○ 20 rooms | unconfirmed → call |
 ```
 
-**人が「自分で探したい」と言ったら**、AI は探さず、つくったクエリを検索リンクにして渡す:
+**If the person says they want to search themselves**, don't search; turn the queries into search links:
 
-- **Google 検索**: `https://www.google.com/search?q=<クエリ>`。`site:tabelog.com` などでサイトを絞り、`-語` で除外する
-- **Google マップ**: `https://www.google.com/maps/search/?api=1&query=<クエリ>`。除外語は効かないので検索語だけ入れる。場所の雰囲気や距離を見る用
-- クエリは必ず URL エンコードする
-- サイト内の絞り込み（食べログの「個室あり」など）は URL で作らず、「開いたら左の条件で○○にチェック」と文章で添える
-- 1 本ごとに「何を狙ったリンクか」を 1 行添え、「気になった店名を並べるか、リンクやスクショを貼ってください」と頼む
+- **Google Search**: `https://www.google.com/search?q=<query>`. Narrow to a site with `site:` (local sites are listed in the locale pack) and exclude with `-term`
+- **Google Maps**: `https://www.google.com/maps/search/?api=1&query=<query>`. Exclusions don't work there, so use search terms only. For getting a feel for the place and distances
+- Always URL-encode the query
+- Don't build in-site filters (e.g. a site's "private room" checkbox) into the URL; describe them in words ("after opening, tick X in the left panel")
+- Add one line per link on what it's for, and ask "list the names you liked, or paste links or screenshots"
 
-### 3. 戻ってきたものを判定する
+### 3. Judge what comes back
 
-人が店名・リンク・スクショ・コピペを貼ったら（自分で探した結果でも、AI の候補とは別に調べてきた情報でも同じ）:
+When the person pastes names, links, screenshots or copied text (from their own search or from anywhere else):
 
-- リンクが宿・店の公式サイトなら読む。予約サイト・グルメサイト・口コミサイトのリンクは開かず、「その画面のスクショか、気になった所のコピペをください」と頼む
-- 貼られたものと公式サイトだけを根拠に、constraints.md の「AI が判定すること」を判定する（チェーンか、宴会向きか、など）。自分の知識で判定したときはそう書く
-- candidates.md に 1 候補 1 行で足す。「合う点」「気になる点」は constraints.md のどの制約に効いたかがわかるように書く。出典と確度を必ず付ける
-- 判定できないことは「未確認」と書き、questions.md に `- [ ] 誰に: 何を聞くか（なぜ）` で足す
+- If the link is a hotel's or restaurant's official site, read it. Don't open booking, gourmet or review site links; ask "please send a screenshot of that page, or copy the parts you cared about"
+- Using only what was pasted and official sites, judge the "What the AI judges" items in constraints.md (is it a chain, is it geared to parties, etc.). If you judged from your own knowledge, say so
+- Add each candidate as one row in candidates.md. Write "fits" and "concerns" so it's clear which constraint in constraints.md each one relates to. Always attach source and confidence
+- Mark anything you can't judge as "unconfirmed" and add it to questions.md as `- [ ] Who: what to ask (why)`
 
-### 4. 判断を残す
+### 4. Record decisions
 
-人が選んだ・外したら、decisions.md に `- YYYY-MM-DD 何を選んだ／外した — 理由 — 効いたシグナル` で残し、candidates.md の状態を変える。新しい好み・NG が出たら constraints.md に足す。
+When the person chooses or drops something, add `- YYYY-MM-DD chose/dropped what — reason — signal that mattered` to decisions.md and update the status in candidates.md. Add any new preference or no-go to constraints.md.
 
-### 5. 旅程にする
+### 5. Build the itinerary
 
-候補が揃ったら、移動の負担を聞いて itinerary.md に日ごとの表と予約 TODO を作る。送迎・バスの時刻・予約期限のような一次情報は、公式サイトで確かめて出典を付ける（確かめられなければ questions.md へ）。頼まれたら予定を .ics ファイルにして出す。
+Once candidates are settled, ask how much travel burden they're OK with and build a day-by-day table and booking TODOs in itinerary.md. Check first-hand facts like shuttle times, bus times and booking deadlines on official sites and cite them (if you can't, add them to questions.md). If asked, export the plan as an .ics file.
 
-### 6. 旅行のあとで
+### 6. After the trip
 
-「実際どうだったか」を聞き、decisions.md の該当する行の下に `  - 実際: …` を足す。辞書に無いシグナルが効いていたら、辞書に送れる形（個人の事情を抜いて一般化した 1 行、辞書と同じ列）にして見せ、「辞書に送りますか？」と聞く。送るのは本人が OK したときだけ。送り方は repo の CONTRIBUTING.md（Issue に貼ってもらう）。
+Ask "how did it actually go?" and add `  - Actual: …` under the matching line in decisions.md. If a signal that's not in the dictionary turned out to matter, show it in a form that can be contributed — generalized with personal details removed: one core row in the same columns as `dictionary.md`, plus one row of search terms for the destination's locale pack — and ask "Do you want to send this to the dictionary?" Send it only if they agree. How to send is in the repo's CONTRIBUTING.md (paste it into an Issue).
 
-## 毎回の返答の最後に
+## At the end of every reply
 
-保存モードなら、何をどのファイルに書いたかを 1〜3 行で伝える（例: 「constraints.md に 2 行、candidates.md に 3 候補を足しました。電話で聞くことが 1 つ増えています（questions.md）」）。会話モードなら、今の制約・候補・確認タスクのうち変わった所を短く示す。
+In save mode, say in 1–3 lines what you wrote to which file (e.g. "Added 2 rows to constraints.md and 3 candidates to candidates.md. There's one more thing to ask by phone (questions.md)"). In conversation mode, briefly show what changed in the constraints, candidates and questions.
 
-## やらないこと
+## Don't
 
-- 予約・グルメサイト・口コミサイトのページの自動取得、Google の検索結果ページの取得、スクレイピング、ログインが要るページの操作
-- 予約・電話・支払いの代行
-- このスキルのフォルダへの書き込み
-- profile.md の中身（体調・家族のこと）を、本人の確認なしに外へ出すこと
+- Auto-fetch booking, gourmet or review site pages, fetch Google results pages, scrape, or operate pages that require login
+- Book, call or pay on the person's behalf
+- Write into this skill's folder
+- Share the contents of profile.md (health, family) outside without the person's OK

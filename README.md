@@ -1,43 +1,49 @@
 # trip-harness
 
-旅行計画を、**人の暗黙知と AI の裏取りを往復させて**進める Claude Code のスキル。
+English | [日本語](README.ja.md)
 
-「うるさくない店がいい」「チェーンは嫌」「宿にこもるだけだと飽きる」のような曖昧な感覚を検索語・除外語に翻訳し、AI が Web 検索と宿・店の公式サイトで候補を探して、制約ごとの比較表とおすすめを出します。検索でわからないことは「未確認」として、電話で聞くことのリストにします。
+A Claude Code skill that plans trips by **going back and forth between your unspoken preferences and AI fact-checking**.
 
-- 自分で探したいときは、そう言えば検索リンク（Google 検索・Google マップ）を渡します。見てきた店名・リンク・スクショを貼れば、同じ基準で判定します
-- AI は予約サイト・グルメサイトのページを自動で取りにいきません。料金・空室・口コミは、渡したリンクからあなたが見ます
-- API キーや外部サービスの設定は要りません
-- 既定は会話だけで進めます。「保存して」と言えば、作業フォルダに Markdown の台帳（制約・候補・確認タスク・判断・旅程）を作り、会話をやり直しても続きから始められます
+It turns vague feelings like "a quiet place", "no chains" or "I get bored just staying in the hotel" into search terms and exclusion terms. The AI then searches the web and the official sites of hotels and restaurants, and returns a comparison table per constraint plus a recommendation. Anything search can't answer is marked "unconfirmed" and goes on a list of things to ask by phone.
 
-## 入れ方（Claude Code）
+- If you'd rather search yourself, say so and you get search links (Google Search, Google Maps). Paste the names, links or screenshots you found and they're judged against the same criteria
+- The AI never auto-fetches booking, gourmet or review sites. You check prices, availability and reviews yourself through the links it gives you
+- No API keys or external services to set up
+- Search terms are built in **the destination's language**, not yours. For Japan, a bundled Japanese term pack is used (with short glosses if you don't read Japanese). For other countries, terms are built on the spot in the local language
+- Conversation only by default. Say "save this" and it creates Markdown ledgers (constraints, candidates, things to confirm, decisions, itinerary) in your working folder, so you can pick up where you left off
+
+## Install (Claude Code)
 
 ```
 /plugin marketplace add takuto0831/trip-harness
 /plugin install trip-harness@trip-harness
 ```
 
-`/plugin` が使えない環境（VS Code 拡張など）では、ターミナルで同じことができます。
+Where `/plugin` isn't available (e.g. the VS Code extension), do the same from a terminal:
 
 ```
 claude plugin marketplace add takuto0831/trip-harness
 claude plugin install trip-harness@trip-harness
 ```
 
-入れたあとは Claude Code を開き直してください。
+Restart Claude Code after installing.
 
-### 新しい版に更新する
+### Update to a new version
 
 ```
 claude plugin marketplace update trip-harness
 claude plugin update trip-harness@trip-harness
 ```
 
-## 使い方
+## Usage
 
-Claude Code を開き、「旅行の計画を一緒に考えて」と話しかけます。保存するつもりなら、この repo ではなく旅行用のフォルダで開いてください（記録はそのフォルダにできます）。
+Open Claude Code and say "help me plan a trip". If you plan to save, open it in a folder for your trips rather than in this repo (the records go into that folder).
 
-## 中身
+## What's inside
 
-- `skills/trip-harness/SKILL.md` … スキル本体
-- `skills/trip-harness/dictionary.md` … 暗黙知 → シグナル変換辞書（プラグインに同梱。項目の送り方は [CONTRIBUTING.md](CONTRIBUTING.md)）
-- `skills/trip-harness/templates/` … 旅行フォルダのひな形
+- `skills/trip-harness/SKILL.md` … the skill
+- `skills/trip-harness/dictionary.md` … core dictionary: unspoken preference → observable signals, what the AI judges, how to confirm (language-independent)
+- `skills/trip-harness/locales/` … search term packs per destination. Japan is `ja-JP.md` (search and exclusion terms, local conditions, local booking and gourmet sites)
+- `skills/trip-harness/templates/` … templates for a trip folder
+
+Contributions to the dictionary and new locale packs are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).

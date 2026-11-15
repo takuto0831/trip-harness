@@ -1,3 +1,3 @@
-# 確認タスク
+# Things to confirm
 
-<!-- 検索でもわからないこと。書式: - [ ] 誰に（店名・電話）: 何を聞くか（なぜ） -->
+<!-- Things search can't answer. Format: - [ ] Who (place name, phone): what to ask (why) -->

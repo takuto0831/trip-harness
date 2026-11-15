@@ -1,6 +1,6 @@
-# 候補
+# Candidates
 
-<!-- 確度: 公式／検索結果（公式ドメイン）／準公式／検索結果／口コミ／人が貼った。状態: 検討中／採用／不採用 -->
+<!-- Confidence: Official / Search result (official domain) / Semi-official / Search result / Review / Pasted by the person. Status: considering / chosen / dropped -->
 
-| 候補 | 種類 | リンク | 合う点 | 気になる点 | 出典と確度 | 状態 |
+| Candidate | Type | Link | Fits | Concerns | Source and confidence | Status |
 |---|---|---|---|---|---|---|

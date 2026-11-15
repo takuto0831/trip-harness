@@ -1,10 +1,10 @@
-# 旅程
+# Itinerary
 
-## 日程
+## Schedule
 
-| 日 | 時刻 | 場所・やること | 移動 |
+| Day | Time | Place / what to do | Getting there |
 |---|---|---|---|
 
-## 予約 TODO
+## Booking TODO
 
 - [ ] 

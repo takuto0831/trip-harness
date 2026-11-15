@@ -1,7 +1,7 @@
 {
   "name": "trip-harness",
-  "version": "0.4.1",
-  "description": "旅行計画のハーネス。人の暗黙知（「うるさくない店がいい」）を検索語・除外語に翻訳し、AI が Web 検索と公式サイトで候補を探して比べ、候補表・確認タスク・判断ログ・旅程に落とす。",
+  "version": "0.5.0",
+  "description": "Trip planning harness. Translates unspoken preferences (\"a quiet place\", 「うるさくない店がいい」) into search and exclusion terms in the destination's language; the AI searches the web and official sites, compares candidates, and keeps a ledger of candidates, things to confirm, decisions and the itinerary.",
   "author": {
     "name": "takuto0831"
   },
@@ -9,6 +9,8 @@
   "keywords": [
     "travel",
     "planning",
+    "itinerary",
+    "japan",
     "japanese"
   ],
   "homepage": "https://github.com/takuto0831/trip-harness",
