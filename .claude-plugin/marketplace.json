@@ -1,6 +1,11 @@
 {
   "name": "trip-harness",
-  "owner": { "name": "takuto0831" },
+  "owner": {
+    "name": "takuto0831"
+  },
+  "metadata": {
+    "description": "旅行計画スキル trip-harness を配るマーケットプレイス"
+  },
   "plugins": [
     {
       "name": "trip-harness",

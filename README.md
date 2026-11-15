@@ -16,6 +16,22 @@
 /plugin install trip-harness@trip-harness
 ```
 
+`/plugin` が使えない環境（VS Code 拡張など）では、ターミナルで同じことができます。
+
+```
+claude plugin marketplace add takuto0831/trip-harness
+claude plugin install trip-harness@trip-harness
+```
+
+入れたあとは Claude Code を開き直してください。
+
+### 新しい版に更新する
+
+```
+claude plugin marketplace update trip-harness
+claude plugin update trip-harness@trip-harness
+```
+
 ## 使い方
 
 Claude Code を開き、「旅行の計画を一緒に考えて」と話しかけます。保存するつもりなら、この repo ではなく旅行用のフォルダで開いてください（記録はそのフォルダにできます）。
