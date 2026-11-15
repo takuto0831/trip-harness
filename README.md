@@ -51,7 +51,7 @@ To update, delete `~/.codex/skills/where-to-harness` and run the same command ag
 
 Open Claude Code and say "help me plan a trip", or just "find me an izakaya in Shibuya for tonight". If you plan to save, open it in a folder for your outings rather than in this repo (records go into `outings/` in that folder).
 
-> **Note: don't allow `WebFetch(domain:*)`.** If your Claude Code settings (`permissions.allow` in `settings.json`) contain `WebFetch(domain:*)`, every page fetch goes through without asking, so the skill doesn't behave as intended: you no longer approve or decline each site, and fetches you'd have declined never fall back to the official-domain search. Remove it, or allow only the specific domains you trust.
+> **Note: don't put `WebFetch(domain:*)` in deny.** If your Claude Code settings (`permissions.deny` in `settings.json`) contain `WebFetch(domain:*)`, every page fetch is refused, so the skill can't read the official sites of hotels and restaurants. It has to judge from search results alone, and nothing can get a ○ checked on an official site. To keep specific sites out, deny those domains one by one.
 
 ## What's inside
 
