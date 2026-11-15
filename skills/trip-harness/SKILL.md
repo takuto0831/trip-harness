@@ -19,7 +19,13 @@ This skill's job is **not to hand out answers, but to translate that know-how in
 1. **Break down, don't conclude**: don't push a conclusion. Translate the person's feelings into search terms, observable features and things to confirm
 2. **The AI searches, but never reads booking or review sites**: find and compare candidates using only **web search (this tool's search function; never open a Google results page) and the official sites of hotels and restaurants**. Don't auto-fetch pages on booking, gourmet or review sites (Booking.com, Expedia, Tripadvisor, Yelp, Google reviews, and the local sites listed in the locale pack). What people want from those sites (prices, availability, reviews) they check themselves through search links you give them
 3. **Don't hide what you don't know**: anything you can't determine is marked "unconfirmed" and becomes a question to confirm (phone, inquiry)
-4. **Attach source and confidence**: every fact gets a source and a confidence label (Official / Search result (official domain) / Semi-official / Search result / Review / Pasted by the person)
+4. **Attach source and confidence**: every fact gets a source and a confidence label. **Use only these six labels** (translated into the person's language), and don't invent others such as "Official (search)" or "Booking site":
+   - **Official**: read on the official site's page
+   - **Search result (official domain)**: from a search restricted to the official domain, without opening the page
+   - **Semi-official**: the operating company's or local government's announcement, a tourism board
+   - **Search result**: a search result snippet from any other site. **A fact taken from a snippet of a booking, gourmet or review site is "Search result"**
+   - **Review**: a review or someone's impression
+   - **Pasted by the person**: a screenshot, link or text the person brought
 5. **Constraints accumulate**: once a preference or a no-go comes up, keep it in constraints.md and apply it to every later search
 6. **Record decisions with reasons**: write what was chosen or dropped, why, and which signal mattered, in decisions.md
 
@@ -96,13 +102,23 @@ Then build **3–5 queries**:
 - Use only the operators `-`, `"…"`, `OR` and `site:`
 - Add one line per query on what it's aiming for
 
+**Always show the translation before the comparison table**, in every language, even when no gloss is needed. It's the part the person checks and corrects:
+
+```
+| Your condition | Search terms / exclusion terms | What the AI judges | Things to confirm |
+|---|---|---|---|
+| "Not a big hotel" | `全○室` (total of N rooms) `-宴会場` (banquet hall) `-バイキング` (buffet) | Large and geared to groups, judging from photos and room count | Whether a group is booked that day |
+```
+
+Then list the 3–5 queries, one line each on what it's aiming for.
+
 Use those queries to search and compare:
 
 1. **Collect**: web search and pick up 5–8 hotel or restaurant names. Don't use the search result snippets as evidence for a candidate as is (they can be old and short)
 2. **Filter**: drop those that clearly conflict with constraints.md (large buffet-style hotels, chains, etc.), with the reason
 3. **Verify**: for the remaining 3–5, read **only the official site** and check each constraint. Anything the official site doesn't say, or when no official site is found, is "unconfirmed". Don't open booking, gourmet or review site pages
    - **When fetching an official site is denied or fails** (blocked by permissions, timeout, unreadable page): don't retry the same fetch or try to get the page another way. Instead, run a web search restricted to the official domain (`site:official-domain`, or the search tool's domain filter) for room count, meals, baths and access. Label the confidence "Search result (official domain)" rather than "Official", and tell the person in one line that the full page wasn't checked. Whatever is still unknown is "unconfirmed": add it to questions.md and give the person the official site URL to check
-4. **Compare**: return a comparison table with ○ / × / unconfirmed per constraint, and add it to candidates.md (source is the official site URL with confidence "Official"; if only from a search snippet, "Search result")
+4. **Compare**: return a comparison table with ○ / × / unconfirmed per constraint, and add it to candidates.md. **Use only these three marks**; no ◎, △ or other symbols. If a constraint is only partly met, or met only under some condition (e.g. "private dining only for 5 or more"), mark it unconfirmed or × and say why in a few words in the same cell, and send what's unclear to questions.md (source is the official site URL with confidence "Official"; if only from a search snippet, "Search result")
 5. **Recommend**: give 1–2 recommendations, with which constraints they satisfied. Add unconfirmed points to questions.md
 6. **What's left for the person**: prices, availability and review scores can't be fetched, so add "please check prices and availability on a booking site", with one search link per candidate. End with: "If there are other places you're curious about, paste the name, link or a screenshot. If you'd rather search yourself, I can give you search links"
 
