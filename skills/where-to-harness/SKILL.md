@@ -114,6 +114,8 @@ Then build **3–5 queries**:
 | "Quiet enough to talk" | `個室` (private room) `小上がり` (raised tatami seating) `-宴会` (party) `-飲み放題` (all-you-can-drink) | Many seats, built around party courses | Whether a large group is booked that night |
 ```
 
+**When conditions conflict, ask before searching.** If dictionary entries conflict with each other or with what the person said (e.g. "quiet enough to talk" brings `-宴会` `-飲み放題`, but they want an all-you-can-drink party in a private room), don't pick one yourself. Show the translation table and, in the same reply, ask one question that covers every conflict: which to put first, or how to adjust (e.g. "keep it quiet with a fully private room instead of excluding parties?"). Search only after they answer.
+
 Replace placeholders like `○` in `全○室` with real numbers when you build queries (`"全8室" OR "全10室"`).
 
 Then list the 3–5 queries, one line each on what it's aiming for.
