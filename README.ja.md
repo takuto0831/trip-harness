@@ -40,6 +40,18 @@ claude plugin marketplace update where-to-harness
 claude plugin update where-to-harness@where-to-harness
 ```
 
+## 入れ方（Codex）
+
+Codex では Claude Code のプラグインは使えませんが、Codex にもとからある skill-installer で、この repo からスキルのフォルダを直接入れられます。Codex にこう頼んでください。
+
+```
+$skill-installer https://github.com/takuto0831/where-to-harness/tree/main/skills/where-to-harness
+```
+
+`~/.codex/skills/where-to-harness` に入ります。入れたあとは Codex を開き直してください。スキルは Web 検索を使うので、Codex で Web 検索を有効にしておいてください。
+
+新しい版にするときは、`~/.codex/skills/where-to-harness` を消してから、同じコマンドをもう一度実行します。
+
 ## 使い方
 
 Claude Code を開き、「旅行の計画を一緒に考えて」や「今夜渋谷で居酒屋を探して」と話しかけます。保存するつもりなら、この repo ではなく旅行・おでかけ用のフォルダで開いてください（記録はそのフォルダの `outings/` にできます）。
