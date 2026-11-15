@@ -1,16 +1,16 @@
 {
-  "name": "trip-harness",
+  "name": "where-to-harness",
   "owner": {
     "name": "takuto0831"
   },
   "metadata": {
-    "description": "Marketplace for the trip-harness travel planning skill"
+    "description": "Marketplace for where-to-harness: find places to stay and places to eat"
   },
   "plugins": [
     {
-      "name": "trip-harness",
+      "name": "where-to-harness",
       "source": "./",
-      "description": "Travel planning skill: turns unspoken preferences into search terms, lets the AI find and compare candidates, and keeps things to confirm, decisions and the itinerary"
+      "description": "Find where to go, for a trip or a meal: turns unspoken preferences into search terms, lets the AI find and compare hotels and restaurants, and keeps things to confirm, decisions and the itinerary"
     }
   ]
 }

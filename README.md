@@ -1,8 +1,13 @@
-# trip-harness
+# where-to-harness
 
 English | [日本語](README.ja.md)
 
-A Claude Code skill that plans trips by **going back and forth between your unspoken preferences and AI fact-checking**.
+A Claude Code skill that finds **where to go**, by going back and forth between your unspoken preferences and AI fact-checking.
+
+Use it for either of these:
+
+- **Trips**: where to stay, which area, what to do each day, all the way to an itinerary
+- **Food**: just a place to eat, e.g. "a quiet izakaya in Tokyo for four on Friday, no chains". No trip needed
 
 It turns vague feelings like "a quiet place", "no chains" or "I get bored just staying in the hotel" into search terms and exclusion terms. The AI then searches the web and the official sites of hotels and restaurants, and returns a comparison table per constraint plus a recommendation. Anything search can't answer is marked "unconfirmed" and goes on a list of things to ask by phone.
 
@@ -15,15 +20,15 @@ It turns vague feelings like "a quiet place", "no chains" or "I get bored just s
 ## Install (Claude Code)
 
 ```
-/plugin marketplace add takuto0831/trip-harness
-/plugin install trip-harness@trip-harness
+/plugin marketplace add takuto0831/where-to-harness
+/plugin install where-to-harness@where-to-harness
 ```
 
 Where `/plugin` isn't available (e.g. the VS Code extension), do the same from a terminal:
 
 ```
-claude plugin marketplace add takuto0831/trip-harness
-claude plugin install trip-harness@trip-harness
+claude plugin marketplace add takuto0831/where-to-harness
+claude plugin install where-to-harness@where-to-harness
 ```
 
 Restart Claude Code after installing.
@@ -31,19 +36,21 @@ Restart Claude Code after installing.
 ### Update to a new version
 
 ```
-claude plugin marketplace update trip-harness
-claude plugin update trip-harness@trip-harness
+claude plugin marketplace update where-to-harness
+claude plugin update where-to-harness@where-to-harness
 ```
 
 ## Usage
 
-Open Claude Code and say "help me plan a trip". If you plan to save, open it in a folder for your trips rather than in this repo (the records go into that folder).
+Open Claude Code and say "help me plan a trip", or just "find me an izakaya in Shibuya for tonight". If you plan to save, open it in a folder for your outings rather than in this repo (records go into `outings/` in that folder).
+
+> **Note: don't allow `WebFetch(domain:*)`.** If your Claude Code settings (`permissions.allow` in `settings.json`) contain `WebFetch(domain:*)`, every page fetch goes through without asking, so the skill doesn't behave as intended: you no longer approve or decline each site, and fetches you'd have declined never fall back to the official-domain search. Remove it, or allow only the specific domains you trust.
 
 ## What's inside
 
-- `skills/trip-harness/SKILL.md` … the skill
-- `skills/trip-harness/dictionary.md` … core dictionary: unspoken preference → observable signals, what the AI judges, how to confirm (language-independent)
-- `skills/trip-harness/locales/` … search term packs per destination. Japan is `ja-JP.md` (search and exclusion terms, local conditions, local booking and gourmet sites)
-- `skills/trip-harness/templates/` … templates for a trip folder
+- `skills/where-to-harness/SKILL.md` … the skill
+- `skills/where-to-harness/dictionary.md` … core dictionary: unspoken preference → observable signals, what the AI judges, how to confirm (language-independent)
+- `skills/where-to-harness/locales/` … search term packs per destination. Japan is `ja-JP.md` (search and exclusion terms, local conditions, local booking and gourmet sites)
+- `skills/where-to-harness/templates/` … templates for an outing folder (a trip or a meal out)
 
 Contributions to the dictionary and new locale packs are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
