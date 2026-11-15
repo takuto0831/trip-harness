@@ -1,6 +1,6 @@
 {
   "name": "where-to-harness",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Finds where to go, for a trip or just for dinner tonight. Translates unspoken preferences (\"a quiet izakaya\", 「うるさくない店がいい」, 「宿にこもるだけだと飽きる」) into search and exclusion terms in the destination's language; the AI searches the web and official sites of hotels and restaurants, compares candidates per constraint, and keeps what's still unconfirmed as questions to ask.",
   "author": {
     "name": "takuto0831"
